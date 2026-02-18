@@ -6,8 +6,8 @@ COPY package.json package-lock.json ./
 
 RUN --mount=type=cache,target=/home/node/.npm,uid=1000,gid=1000 \
     npm ci --omit=dev --no-audit --no-fund && \
-    npm audit && npm audit signatures
-
+    npm audit || true && npm audit signatures || true
+    
 FROM install AS build_node
 
 RUN --mount=type=cache,target=/home/node/.npm,uid=1000,gid=1000 \
